@@ -1,9 +1,7 @@
 {
 	email {env.EMAIL}
 	admin off
-	acme_dns cloudflare {
-		token {env.CLOUDFLARE_TOKEN}
-	}
+	acme_dns cloudflare {env.CLOUDFLARE_TOKEN}
 }
 # generate cert for turn.aosus.org, but don't serve anything
 turn.aosus.org {
