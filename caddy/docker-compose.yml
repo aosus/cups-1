@@ -1,0 +1,39 @@
+version: "3.7"
+
+networks:
+  web:
+    external: true
+  discourse:
+    external: true
+
+services:
+  caddy:
+    image: oci.fariszr.com/fariszr/caddy-dns:cloudflare-alpine
+    container_name: caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      - EMAIL=(email)
+      - CLOUDFLARE_TOKEN=(cloudflare_token)
+    configs:
+      - source: Caddyfile
+        target: /etc/caddy/Caddyfile
+    volumes:
+      - /home/aosus/caddy/configs:/etc/caddy/configs:ro
+      - /home/aosus/caddy/proxy_error_page.html:/srv/proxy_error_page.html:ro
+      - data:/data
+      - config:/config
+    networks:
+      web:
+      discourse:
+
+configs:
+  Caddyfile:
+    file: /home/aosus/caddy/Caddyfile
+
+volumes:
+  data:
+  config:
