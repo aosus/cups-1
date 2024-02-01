@@ -1,0 +1,117 @@
+networks:
+  default:
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 2001:db8:2::/64
+  web:
+    external: true
+
+services:
+  pipedfrontend:
+    image: 1337kavin/piped-frontend:latest@sha256:a3b39914d8958e1b9a71f174a87e94acbb2d784a010aad9f4c1b77881da7e8f8
+    restart: always
+    container_name: pipedfrontend
+    depends_on:
+      - piped
+    entrypoint: ash -c 'sed -i s/pipedapi.kavin.rocks/api.piped.aosus.link/g /usr/share/nginx/html/assets/* && /docker-entrypoint.sh && nginx -g "daemon off;"'
+    networks:
+      web:
+
+  piped-proxy:
+    image: 1337kavin/piped-proxy:latest@sha256:312dcf331c6d064cb4a9c37c60cbcbe6935c3364182c40fbce74ff2240474e87
+    container_name: piped-proxy
+    restart: always
+    environment:
+      - UDS=1
+    volumes:
+      - piped-proxy:/app/socket
+
+  piped:
+    image: 1337kavin/piped:latest@sha256:60df384a46e3547d54fa866ca1bc4fd2375537361ff1f2bb03d79e5f9705c2e8
+    container_name: piped
+    restart: always
+    configs:
+      - source: piped
+        target: /app/config.properties
+    depends_on:
+      - postgres
+      
+  nginx:
+    image: nginx:mainline-alpine@sha256:156d75f07c59b2fd59d3d1470631777943bb574135214f0a90c7bb82bde916da
+    restart: always
+    container_name: piped-nginx
+    volumes:
+      - piped-proxy:/var/run/ytproxy
+    configs:
+      - source: nginx
+        target: /etc/nginx/nginx.conf
+      - source: pipedapi
+        target: /etc/nginx/conf.d/pipedapi.conf
+      - source: pipedproxy
+        target: /etc/nginx/conf.d/pipedproxy.conf
+      - source: pipedfrontend
+        target: /etc/nginx/conf.d/pipedfrontend.conf
+      - source: ytproxy
+        target: /etc/nginx/snippets/ytproxy.conf
+    depends_on:
+      - piped
+      - piped-proxy
+      - pipedfrontend
+    networks:
+      - default
+      - web
+
+  postgres:
+    image: postgres:15.5-alpine@sha256:934be6ae0a5bce0f607a5edc437e6bd606c074e595c28d4897845d6502823104
+    container_name: piped-postgres
+    restart: always
+    volumes:
+      - postgres:/var/lib/postgresql/data:rw
+    environment:
+      - POSTGRES_DB=piped
+      - POSTGRES_USER=piped
+      - POSTGRES_PASSWORD=(piped_postgres_password)
+
+# schedule ipv6 rotations
+  ofelia:
+    image: mcuadros/ofelia:latest@sha256:aa1b935ed0d7d01805bb9ca95e7b44499208ad8d95016d6afa8fdf967ea65c74
+    depends_on:
+      - smart-ipv6-rotator
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+# automatically rotate IPV6 address used to comunicate with google
+  smart-ipv6-rotator:
+    image: quay.io/invidious/smart-ipv6-rotator@sha256:0580ec1e3e9096fbb300e59828d7f62c694b012927eb20f4b298d10baaacb4b2
+    container_name: smart-ipv6-rotator
+    privileged: true
+    userns_mode: host
+    network_mode: host
+    volumes:
+      - /home/aosus/piped/ipv6-rotator:/tmp:rw
+    command: run --ipv6range=2a03:4000:5d:b9::/64
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.datecron.schedule: "@every 12h"
+      ofelia.job-exec.datecron.command: "run --ipv6range=2a03:4000:5d:b9::/64"
+
+volumes:
+  postgres:
+  piped-proxy:
+
+
+configs:
+  nginx:
+    file: /home/aosus/piped/config/nginx.conf
+  pipedapi:
+    file: /home/aosus/piped/config/pipedapi.conf
+  pipedproxy:
+    file: /home/aosus/piped/config/pipedproxy.conf
+  pipedfrontend:
+    file: /home/aosus/piped/config/pipedfrontend.conf
+  ytproxy:
+    file: /home/aosus/piped/config/ytproxy.conf
+  piped: 
+    file: /home/aosus/piped/config.properties
