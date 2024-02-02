@@ -33,7 +33,7 @@ services:
       MARIADB_PASSWORD: (aosus_wordpress_mariadb_password)
       MARIADB_AUTO_UPGRADE: true
       #MARIADB_RANDOM_ROOT_PASSWORD: '1'
-      MARIADB_ROOT_PASSWORD: (aosus_wordpress_mariadb_root_password
+      MARIADB_ROOT_PASSWORD: (aosus_wordpress_mariadb_root_password)
     volumes:
       - mariadb:/var/lib/mysql
 
