@@ -1,0 +1,46 @@
+networks: 
+  default:
+    enable_ipv6: true
+  web:
+    external: true
+
+services:
+  wordpress:
+    image: wordpress:6.4.3-apache@sha256:01fb62485c4a70c13a7f5fd02d56235c904b748f810be29027a337f1400dc4ea
+    container_name: aosus-wordpress
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: aosusworddb
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_PASSWORD: (aosus_wordpress_mariadb_password)
+      # WORDPRESS_DEBUG: true
+    networks: 
+      default:
+      web:
+    volumes:
+      - html:/var/www/html:rw
+    configs:
+      - source: custom-ini
+        target: /usr/local/etc/php/conf.d/custom.ini
+
+  mariadb:
+    image: mariadb:11.2.2@sha256:a9385bb457ebf4600da632cc331f11a5328c582bfb492aa76517282bcae1dcc9
+    restart: always
+    environment:
+      MARIADB_USER: aosusworddb
+      MARIADB_DATABASE: wordpress
+      MARIADB_PASSWORD: (aosus_wordpress_mariadb_password)
+      MARIADB_AUTO_UPGRADE: true
+      #MARIADB_RANDOM_ROOT_PASSWORD: '1'
+      MARIADB_ROOT_PASSWORD: (aosus_wordpress_mariadb_root_password
+    volumes:
+      - mariadb:/var/lib/mysql
+
+volumes:
+  mariadb:
+  html:
+
+configs:
+  custom-ini:
+    file: /home/aosus/aosus-wordpress/custom.ini
