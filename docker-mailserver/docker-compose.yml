@@ -19,7 +19,7 @@ services:
       # - "465:465"  # ESMTP (implicit TLS)
       - "587:587"  # ESMTP (explicit TLS => STARTTLS)
       # - "993:993"  # IMAP4 (implicit TLS)
-      - "110:110"  # POP3
+      # - "110:110"  # POP3
       - "995:995"  # POP3 (with TLS)
     volumes:
       - mail-data:/var/mail
