@@ -47,11 +47,11 @@ services:
       - SMTP_HOST_ADDR=smtp.eu.mailgun.org
       - SMTP_HOST_PORT=587
       - SMTP_USER_NAME=plausible@services.aosus.org
-      - SECRET_KEY_BASE="(plausible_secret_key_base)"
-      - SMTP_USER_PWD="(plausible_smtp_user_pwd)"
-      - GOOGLE_CLIENT_ID="(plausible_google_client_id)"
-      - GOOGLE_CLIENT_SECRET="(plausible_google_client_secret)"
-      - MAXMIND_LICENSE_KEY="(plausible_maxmind_license_key)"
+      - SECRET_KEY_BASE=(plausible_secret_key_base)
+      - SMTP_USER_PWD=(plausible_smtp_user_pwd)
+      - GOOGLE_CLIENT_ID=(plausible_google_client_id)
+      - GOOGLE_CLIENT_SECRET=(plausible_google_client_secret)
+      - MAXMIND_LICENSE_KEY=(plausible_maxmind_license_key)
       - MAXMIND_EDITION=GeoLite2-City
     networks:
       default:
