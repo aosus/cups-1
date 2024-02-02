@@ -8,7 +8,7 @@ turn.aosus.org {
 	abort
 }
 
-mail.aosus.org {
+mail.cups-1.aosus.org {
 	tls {
 		key_type rsa4096
 	}
