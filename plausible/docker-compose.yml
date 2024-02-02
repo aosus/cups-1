@@ -1,0 +1,70 @@
+networks: 
+  default:
+    enable_ipv6: true
+  web:
+    external: true
+
+services:
+  plausible_db:
+    restart: unless-stopped
+    image: postgres:12.17-alpine@sha256:9b8cddafe10e9b94ea858c34c4febe02d139fb7324064a42d3465af87f1d49ed
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD="(plausible_postgres_password)"
+
+  plausible_events_db:
+    restart: unless-stopped
+    image: clickhouse/clickhouse-server:22.12-alpine@sha256:c2abc9bd093328270bb3d0b259ec3b8871306fb6084359d42859ebee433ef0d9
+    volumes:
+      - event-data:/var/lib/clickhouse
+    configs:
+      - source: clickhouse-config
+        target: /etc/clickhouse-server/config.d/logging.xml
+      - source: clickhouse-user-config
+        target: /etc/clickhouse-server/users.d/logging.xml
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
+  plausible:
+    restart: unless-stopped
+    image: plausible/analytics:v2.0.0@sha256:cd5f75e1399073669b13b4151cc603332a825324d0b8f13dfc9de9112a3c68a1
+    container_name: plausible
+    command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh run"
+    expose:
+      - 8000
+    depends_on:
+      - plausible_db
+      - plausible_events_db
+    # ports:
+      # - 8004:8000
+    environment:
+      - BASE_URL=https://pa.aosus.org
+      - DISALBLE_REGISTRATION=true
+      - MAILER_EMAIL=plausible@services.aosus.org
+      - SMTP_HOST_ADDR=smtp.eu.mailgun.org
+      - SMTP_HOST_PORT=587
+      - SMTP_USER_NAME=plausible@services.aosus.org
+      - SECRET_KEY_BASE="(plausible_secret_key_base)"
+      - SMTP_USER_PWD="(plausible_smtp_user_pwd)"
+      - GOOGLE_CLIENT_ID="(plausible_google_client_id)"
+      - GOOGLE_CLIENT_SECRET="(plausible_google_client_secret)"
+      - MAXMIND_LICENSE_KEY="(plausible_maxmind_license_key)"
+      - MAXMIND_EDITION=GeoLite2-City
+    networks:
+      default:
+      web:
+
+volumes:
+  geoip:
+    driver: local
+  postgres:
+  event-data:
+
+configs:
+  clickhouse-config:
+    file: /home/aosus/plausible/clickhouse-config.xml
+  clickhouse-user-config:
+    file: /home/aosus/plausible/clickhouse-user-config.xml
