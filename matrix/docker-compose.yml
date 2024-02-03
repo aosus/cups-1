@@ -155,23 +155,23 @@ services:
 
 configs:
   synapse-homeserver:
-    file: homeserver.yaml
+    file: /home/aosus/matrix/homeserver.yaml
   synapse-log-config:
-    file: log.config
+    file: /home/aosus/matrix/log.config
   mautrix-telegram-appservice:
-    file: mautrix-telegram/app-service-registration.yaml
+    file: /home/aosus/matrix/mautrix-telegram/app-service-registration.yaml
   mautrix-telegram-config:
-    file: mautrix-telegram/config.yaml
+    file: /home/aosus/matrix/mautrix-telegram/config.yaml
   mautrix-discord-config:
-    file: mautrix-discord/config.yaml
+    file: /home/aosus/matrix/mautrix-discord/config.yaml
   mautrix-discord-appservice:
-    file: mautrix-discord/app-service-registration.yaml
+    file: /home/aosus/matrix/mautrix-discord/app-service-registration.yaml
   eturnal:
-    file: eturnal.yml
+    file: /home/aosus/matrix/eturnal.yml
 # import key using file created by github runner.
 secrets:
   matrix-signing-key:
-    file: signing.key
+    file: /home/aosus/matrix/signing.key
 
 volumes:
   caddy_data:
