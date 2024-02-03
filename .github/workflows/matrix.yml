@@ -34,9 +34,6 @@ jobs:
           MATRIX_TURN_SHARED_SECRET: ${{ secrets.matrix_turn_shared_secret }}
           MATRIX_REGISTRATION_SHARED_SECRET: ${{ secrets.matrix_registration_shared_secret }}
           MATRIX_FORM_SECRET: ${{ secrets.matrix_form_secret }}
-          MATRIX_OIDC_ISSUER: ${{ secrets.matrix_oidc_issuer }}
-          MATRIX_OIDC_CLIENT_ID: ${{ secrets.matrix_oidc_client_id }}
-          MATRIX_OIDC_CLIENT_SECRET: ${{ secrets.matrix_oidc_client_secret }}
           MATRIX_POSTGRES_PASSWORD: ${{ secrets.matrix_postgres_password }}
           MATRIX_SMTP_PASS: ${{ secrets.matrix_smtp_pass }}
         run: |
