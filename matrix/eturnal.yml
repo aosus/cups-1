@@ -11,9 +11,9 @@ eturnal:
   secret: "(matrix_turn_shared_secret)"
 
   ## The server's public IPv4 address (default: autodetected):
-  relay_ipv4_addr: "65.108.4.108"
+  relay_ipv4_addr: "89.58.0.238"
   ## The server's public IPv6 address (optional):
-  relay_ipv6_addr: "2a01:4f9:6a:5393::2"
+  relay_ipv6_addr: "2a03:4000:5d:b9:e801:faff:fe88:7dec"
   realm: turn.aosus.org
 
   listen:
