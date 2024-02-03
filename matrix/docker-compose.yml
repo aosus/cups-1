@@ -110,7 +110,7 @@ services:
 
 
   eturnal:
-    image: ghcr.io/processone/eturnal:1.12.0@sha256:c4ad43bc6a26d418455a0c89df9ce9850798c0a1401fc751ce43d831fd34e19b
+    image: ghcr.io/processone/eturnal:edge
     user: 0:0 # to access caddy certs
     ports:
       - '3478:3478'
@@ -119,6 +119,8 @@ services:
       - '32000-32200:32000-32200/udp'
     volumes:
       - caddy_data:/caddy-data:ro
+    environment:
+      - ETURNAL_USER=root
     configs:
       - source: eturnal
         target: /etc/eturnal.yml
