@@ -49,6 +49,7 @@ jobs:
           sed -i "s|(matrix_oidc_client_secret)|$MATRIX_OIDC_CLIENT_SECRET|g" $GITHUB_WORKSPACE/matrix/homeserver.yaml
           sed -i "s|(matrix_postgres_password)|$MATRIX_POSTGRES_PASSWORD|g" $GITHUB_WORKSPACE/matrix/homeserver.yaml
           sed -i "s|(matrix_smtp_pass)|$MATRIX_SMTP_PASS|g" $GITHUB_WORKSPACE/matrix/homeserver.yaml
+          sed -i "s|(matrix_form_secret)|$MATRIX_FORM_SECRET|g" $GITHUB_WORKSPACE/matrix/homeserver.yaml
 
       - name: Add secrets to eturnal.yml
         env:
