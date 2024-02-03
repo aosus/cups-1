@@ -47,7 +47,6 @@ jobs:
         uses: FarisZR/Tailscale-ssh-deploy@main
         with:
           remote_host: ${{ secrets.server_address }}
-          directory: discourse
-          args: -p caddy up -d --remove-orphans
+          directory: discourse/containers
           post_upload_command: /home/aosus/discourse/launcher rebuild app 
-          remote_destination: /home/aosus/discourse/containers
+          remote_destination: /home/aosus/discourse
