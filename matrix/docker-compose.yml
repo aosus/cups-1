@@ -171,7 +171,7 @@ configs:
 # import key using file created by github runner.
 secrets:
   matrix-signing-key:
-    file: /home/aosus/matrix/signing.key
+    file: signing.key
 
 volumes:
   caddy_data:
