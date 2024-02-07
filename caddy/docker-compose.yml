@@ -8,7 +8,7 @@ networks:
 
 services:
   caddy:
-    image: oci.fariszr.com/fariszr/caddy-dns:cloudflare-alpine@sha256:4ca69360a3b9dca1ec4d97d5b1c30f91e74a93cb1650dc686e532516b73671e5
+    image: oci.fariszr.com/fariszr/caddy-dns:cloudflare-alpine@sha256:a207d6403048832c533cce1a165e036cb506ec8327ed2c40725144c0b39a33e0
     container_name: caddy
     restart: always
     ports:
