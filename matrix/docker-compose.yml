@@ -108,6 +108,16 @@ services:
     volumes:
       - discord-postgres:/var/lib/postgresql/data:rw
 
+# Discord now requires signed URLs for their CDN, this resolver fetches signed urls using a user token, and redirects the user to it.
+  discord-resolver:
+    image: ghcr.io/aosus/discord_cdn:master
+    # ports:
+    #   - 3000:3000
+    environment:
+      - TOKEN=(matrix_discord_resolver_account_token)
+      - CACHE=86400 # cache discord links for a day
+    networks:
+      - web
 
   eturnal:
     image: ghcr.io/processone/eturnal:edge@sha256:a47da8b6269b6946f154e8d00f44887ebfef9908361afc8348760ab1853b0e7c

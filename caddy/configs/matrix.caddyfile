@@ -1,14 +1,14 @@
 matrix.aosus.org {
-	# proxy direct images from discord CDN instead of uploading (https://docs.mau.fi/bridges/go/discord/direct-media.html)
+	# redirect image requests to discord CDN instead of uploading with a workaround for signed URL requirement (https://github.com/aosus/infrastructure-meta/issues/5)
 	handle /_matrix/media/*/download/aosus.org/discord_* {
 		header Access-Control-Allow-Origin *
 		# Remove path prefix
-		uri path_regexp ^/_matrix/media/.+/download/aosus\.org/discord_ /
-		# The mxc patterns use | instead of /, so replace it first turning it into attachments/1234/5678/filename.png
+		uri path_regexp ^/_matrix/media/.+/download/aosus\.org/discord_ "/https://cdn.discordapp.com/"
+		# The mxc patterns use | instead of /, so replace it first turning it into attachments/1234/5678/filename.png, and add "https://cdn.discordapp.com" so discord-resolver could fetch a signed url.
 		uri replace "%7C" /
 		reverse_proxy {
 			# reverse_proxy automatically includes the uri, so no {uri} at the end
-			to https://cdn.discordapp.com
+			to discord-resolver:3000
 			# Caddy doesn't set the Host header automatically when reverse proxying
 			# (because usually reverse proxies are local and don't care about Host headers)
 			header_up Host cdn.discordapp.com
@@ -18,10 +18,10 @@ matrix.aosus.org {
 	# Alternatively, you can point this at cdn.discordapp.com too. Clients shouldn't mind even if they get a bigger image than they asked for.
 	handle /_matrix/media/*/thumbnail/aosus.org/discord_* {
 		header Access-Control-Allow-Origin *
-		uri path_regexp ^/_matrix/media/.+/thumbnail/aosus\.org/discord_ /
+		uri path_regexp ^/_matrix/media/.+/thumbnail/aosus\.org/discord_ "/https://media.discordapp.net/"
 		uri replace "%7C" /
 		reverse_proxy {
-			to https://media.discordapp.net
+			to discord-resolver:3000
 			header_up Host media.discordapp.net
 		}
 	}
