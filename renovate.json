@@ -31,7 +31,7 @@
         "docker"
       ],
       "matchUpdateTypes": ["major"],
-      "matchPackageNames": ["postgres", "clickhouse/clickhouse-server"],
+      "matchPackageNames": ["postgres", "clickhouse/clickhouse-server", "mariadb"],
       "enabled": false
     }
   ]
