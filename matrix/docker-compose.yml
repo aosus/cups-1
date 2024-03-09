@@ -110,7 +110,7 @@ services:
 
 # Discord now requires signed URLs for their CDN, this resolver fetches signed urls using a user token, and redirects the user to it.
   discord-resolver:
-    image: ghcr.io/aosus/discord_cdn:master@sha256:e2d31cc68a227dcf7bc62d6d53efa8092e9894f427a4fd425e62164c00b32bce
+    image: ghcr.io/aosus/discord_cdn:master@sha256:0aa08386101908ab5967d5526f5f6eeee39fcf2b623b0454c49b74586fd679e4
     # ports:
     #   - 3000:3000
     environment:
