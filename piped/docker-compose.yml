@@ -78,7 +78,10 @@ services:
     image: mcuadros/ofelia:latest@sha256:be5e5c3bf89da324c515f025904c7673fc008049236ebd2e67ac17b139ed13b7
     depends_on:
       - smart-ipv6-rotator
-    command: daemon --docker
+    configs:
+      - source: ofelia
+        target: /ofelia.ini
+    command: daemon --docker --config=/ofelia.ini
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
@@ -92,10 +95,6 @@ services:
     volumes:
       - /home/aosus/piped/ipv6-rotator:/tmp:rw
     command: run --ipv6range=2a03:4000:5d:b9::/64
-    labels:
-      ofelia.enabled: "true"
-      ofelia.job-exec.datecron.schedule: "@every 12h"
-      ofelia.job-exec.datecron.command: "run --ipv6range=2a03:4000:5d:b9::/64"
 
 volumes:
   postgres:
@@ -115,3 +114,5 @@ configs:
     file: /home/aosus/piped/config/ytproxy.conf
   piped: 
     file: /home/aosus/piped/config.properties
+  ofelia:
+    file: /home/aosus/piped/ofelia.ini
