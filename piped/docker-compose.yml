@@ -76,12 +76,10 @@ services:
 # schedule ipv6 rotations
   ofelia:
     image: mcuadros/ofelia:latest@sha256:be5e5c3bf89da324c515f025904c7673fc008049236ebd2e67ac17b139ed13b7
-    depends_on:
-      - smart-ipv6-rotator
     configs:
       - source: ofelia
         target: /etc/ofelia.ini
-    command: daemon --docker --config=/ofelia.ini
+    command: daemon --config=/etc/ofelia.ini
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
