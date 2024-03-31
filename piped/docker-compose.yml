@@ -80,7 +80,7 @@ services:
       - smart-ipv6-rotator
     configs:
       - source: ofelia
-        target: /ofelia.ini
+        target: /etc/ofelia.ini
     command: daemon --docker --config=/ofelia.ini
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
