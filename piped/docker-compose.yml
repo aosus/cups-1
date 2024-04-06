@@ -75,7 +75,7 @@ services:
 
 # schedule ipv6 rotations
   ofelia:
-    image: mcuadros/ofelia:latest@sha256:be5e5c3bf89da324c515f025904c7673fc008049236ebd2e67ac17b139ed13b7
+    image: mcuadros/ofelia:latest@sha256:da468fb8c70dbe8b8f7c1c057125cfbc7e2fedab8ff2734b7fe037dcbe12c9c7
     configs:
       - source: ofelia
         target: /etc/ofelia.ini
