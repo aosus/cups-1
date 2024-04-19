@@ -25,7 +25,7 @@ services:
         target: /usr/local/etc/php/conf.d/custom.ini
 
   mariadb:
-    image: mariadb:11.2.3@sha256:c4bca6ff417cdfcaf9a4bf2fd459b5f5c03380b123363eaeae7bf2c1d9097d18
+    image: mariadb:11.2.3@sha256:a4880d35a4284659897692f5871a6fcf1e0802bc33f7279f403f9038bd999081
     restart: always
     environment:
       MARIADB_USER: aosusworddb
