@@ -85,7 +85,7 @@ services:
 
 # automatically rotate IPV6 address used to comunicate with google
   smart-ipv6-rotator:
-    image: quay.io/invidious/smart-ipv6-rotator@sha256:0580ec1e3e9096fbb300e59828d7f62c694b012927eb20f4b298d10baaacb4b2
+    image: quay.io/invidious/smart-ipv6-rotator@sha256:ab8ca1009d9986ffc80ba8c3115098c3d278a823599581b74cd102d49c296d8a
     container_name: smart-ipv6-rotator
     privileged: true
     userns_mode: host
