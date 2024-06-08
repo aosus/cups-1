@@ -10,6 +10,8 @@ services:
   caddy:
     image: oci.fariszr.com/fariszr/caddy-dns:cloudflare-alpine@sha256:337abdd3d7e6c0cbefe056d8f984238027136d98155795052196f6a40452bbff
     container_name: caddy
+    cap_add:
+      - NET_ADMIN
     restart: always
     ports:
       - "80:80"
