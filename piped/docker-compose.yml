@@ -19,7 +19,7 @@ services:
       web:
 
   piped-proxy:
-    image: 1337kavin/piped-proxy:latest@sha256:0dd9808eeab5a6a4685b86abeceb8fb60c7a0e8213e558de8fd1da73a980f7a1
+    image: 1337kavin/piped-proxy:latest@sha256:841e23beff040962378c97079d03cfcf552323bad5bdc5b18b847db23a07b66b
     container_name: piped-proxy
     restart: always
     environment:
