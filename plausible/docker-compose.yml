@@ -30,7 +30,7 @@ services:
 
   plausible:
     restart: unless-stopped
-    image: plausible/analytics:v2.0.0@sha256:cd5f75e1399073669b13b4151cc603332a825324d0b8f13dfc9de9112a3c68a1
+    image: ghcr.io/plausible/community-edition:v2.1.1@sha256:b63e69460bfc01fee32a00b356ec76e4b1b14f17ea531e28105cb91d65d11fae
     container_name: plausible
     command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh run"
     expose:
@@ -48,7 +48,9 @@ services:
       - SMTP_HOST_PORT=587
       - SMTP_USER_NAME=plausible@services.aosus.org
       - SECRET_KEY_BASE=(plausible_secret_key_base)
+      - TOTP_VAULT_KEY=(plausible_totp_vault_key)
       - SMTP_USER_PWD=(plausible_smtp_user_pwd)
+      - MAILER_ADAPTER=Bamboo.Mua
       - GOOGLE_CLIENT_ID=(plausible_google_client_id)
       - GOOGLE_CLIENT_SECRET=(plausible_google_client_secret)
       - MAXMIND_LICENSE_KEY=(plausible_maxmind_license_key)
