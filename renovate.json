@@ -22,7 +22,7 @@
         "docker"
       ],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "matchPackageNames": ["postgres", "clickhouse/clickhouse-server"],
+      "matchPackageNames": ["postgres"],
       "automerge": true,
       "platformAutomerge": true
     },
@@ -30,8 +30,15 @@
       "matchDatasources": [
         "docker"
       ],
+      "matchPackageNames": ["clickhouse/clickhouse-server"],
+      "enabled": false
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
       "matchUpdateTypes": ["major"],
-      "matchPackageNames": ["postgres", "clickhouse/clickhouse-server", "mariadb"],
+      "matchPackageNames": ["postgres", "mariadb"],
       "enabled": false
     }
   ]
