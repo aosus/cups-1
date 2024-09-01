@@ -49,4 +49,4 @@ jobs:
           remote_host: ${{ secrets.server_address }}
           directory: discourse/containers
           post_upload_command: /home/aosus/discourse/launcher rebuild db 
-          remote_destination: /home/aosus/discourse
+          remote_destination: /home/aosus/
