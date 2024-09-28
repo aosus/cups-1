@@ -6,7 +6,7 @@ networks:
 
 services:
   wordpress:
-    image: wordpress:6.6.2-apache@sha256:4a557279b22ee8383f9e0810094b7d59afaa13a72000ef64bdbc57ef13afa286
+    image: wordpress:6.6.2-apache@sha256:1020c9d6e77b55931a5f222a8dcddd86e82b0cc82ea1b0676de734c93cc29efe
     container_name: aosus-wordpress
     restart: always
     environment:
