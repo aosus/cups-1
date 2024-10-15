@@ -120,7 +120,7 @@ services:
       - web
 
   eturnal:
-    image: ghcr.io/processone/eturnal:edge@sha256:53dac56fb6d628a1defab63316ee26771c22dca89099992b2664cdc65dc84fef
+    image: ghcr.io/processone/eturnal:edge@sha256:835fece654d096e4c6d8d48e41db02035befdc2063ecfaac26d3d93d5a4e59b7
     user: 0:0 # to access caddy certs
     ports:
       - '3478:3478'
