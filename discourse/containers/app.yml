@@ -65,7 +65,7 @@ env:
   # DISCOURSE_SMTP_DOMAIN: discourse.aosus.org    # (required by some providers)
   # DISCOURSE_NOTIFICATION_EMAIL: no-reply@discourse.aosus.org    # (address to send notifications from)
 
-  DISCOURSE_SMTP_ADDRESS: mail.cups-1.aosus.org
+  DISCOURSE_SMTP_ADDRESS: cups-g11.aosus.org
   DISCOURSE_SMTP_PORT: 587
   DISCOURSE_SMTP_USER_NAME: "system@discourse.aosus.org"
   DISCOURSE_SMTP_PASSWORD: "(DISCOURSE_SMTP_PASSWORD)"
